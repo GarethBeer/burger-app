@@ -9,17 +9,7 @@
 	align-content: center;
 }
 
-.line1 {
-	height: 3px;
-	width: 100%;
-	background-color: white;
-}
-.line2 {
-	height: 3px;
-	width: 100%;
-	background-color: white;
-}
-.line3 {
+.Burger div {
 	height: 3px;
 	width: 100%;
 	background-color: white;

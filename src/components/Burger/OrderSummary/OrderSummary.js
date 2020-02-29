@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import Aux from "../../../HOC/Aux";
 import Button from "../../UI/Button/Button";
 
@@ -11,7 +13,7 @@ const orderSummary = props => {
 			</li>
 		);
 	});
-	console.log(props.price);
+
 	return (
 		<Aux>
 			<h3>Your Order</h3>
@@ -27,6 +29,11 @@ const orderSummary = props => {
 			</Button>
 		</Aux>
 	);
+};
+orderSummary.propTypes = {
+	continue: PropTypes.func.isRequired,
+	cancel: PropTypes.func.isRequired,
+	price: PropTypes.number.isRequired
 };
 
 export default orderSummary;

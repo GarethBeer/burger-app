@@ -26,7 +26,6 @@ class BurgerBuilder extends Component {
 	};
 
 	orderSummaryState = () => {
-		console.log("clicked");
 		if (this.state.summary === false) {
 			this.setState({
 				summary: true
