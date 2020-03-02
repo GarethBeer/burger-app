@@ -14,3 +14,9 @@
 	width: 100%;
 	background-color: white;
 }
+
+@media (min-width: 500px) {
+	.Burger {
+		display: none;
+	}
+}
