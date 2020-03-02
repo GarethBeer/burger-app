@@ -8,6 +8,12 @@
 	margin: auto;
 	padding: 10px 0;
 }
+.ButtonContainer {
+	display: flex;
+	justify-content: space-evenly;
+	width: 60%;
+	margin: auto;
+}
 
 .OrderButton {
 	background-color: #dad735;
@@ -27,8 +33,13 @@
 	border: 1px solid #966909;
 	color: #966909;
 }
+.ClearButton:hover,
+.ClearButton:active {
+	color: black;
+}
 
-.OrderButton:disabled {
+.OrderButton:disabled,
+.ClearButton:disabled {
 	background-color: #c7c6c6;
 	cursor: not-allowed;
 	border: 1px solid #ccc;
@@ -37,6 +48,20 @@
 
 .OrderButton:not(:disabled) {
 	animation: enable 0.3s linear;
+}
+.ClearButton:not(:disabled) {
+	animation: enable 0.3s linear;
+}
+.ClearButton {
+	background-color: #c02b06;
+	outline: none;
+	cursor: pointer;
+	border: 1px solid #966909;
+	color: white;
+	font-family: inherit;
+	font-size: 1.2em;
+	padding: 15px 30px;
+	box-shadow: 2px 2px 2px #966909;
 }
 
 @keyframes enable {

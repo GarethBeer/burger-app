@@ -37,6 +37,20 @@ class BurgerBuilder extends Component {
 		}
 	};
 
+	clearOrderHandler = props => {
+		const resetIngredients = {
+			salad: 0,
+			bacon: 0,
+			cheese: 0,
+			meat: 0
+		};
+		const newPrice = 4;
+		this.setState({
+			ingredients: resetIngredients,
+			totalPrice: newPrice
+		});
+	};
+
 	updatePurchaseState = ingredients => {
 		const sum = Object.keys(ingredients)
 			.map(igKey => {
@@ -125,6 +139,7 @@ class BurgerBuilder extends Component {
 					price={this.state.totalPrice}
 					purchase={this.state.purchase}
 					summary={this.orderSummaryState}
+					reset={this.clearOrderHandler}
 				/>
 			</Aux>
 		);

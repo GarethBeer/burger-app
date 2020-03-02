@@ -6,7 +6,7 @@ import Aux from "../../../HOC/Aux";
 import Backdrop from "../Backdrop/Backdrop";
 import { Component } from "react";
 
-class modal extends Component {
+class Modal extends Component {
 	shouldComponentUpdate(nextProps, nextState) {
 		return nextProps.show !== this.props.show;
 	}
@@ -32,9 +32,9 @@ class modal extends Component {
 	}
 }
 
-modal.propTypes = {
+Modal.propTypes = {
 	show: PropTypes.bool.isRequired,
 	hide: PropTypes.func.isRequired
 };
 
-export default modal;
+export default Modal;
