@@ -16,5 +16,6 @@
 		width: 500px;
 		left: calc(50% - 250px);
 		top: 30%;
+		min-height: 200px;
 	}
 }

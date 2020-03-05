@@ -4,6 +4,8 @@ import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
+import axios from "../../axios-orders";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 const INGREDIENT_PRICES = {
 	salad: 0.4,
@@ -22,7 +24,8 @@ class BurgerBuilder extends Component {
 		},
 		totalPrice: 4,
 		purchase: false,
-		summary: false
+		summary: false,
+		loading: false
 	};
 
 	orderSummaryState = () => {
@@ -111,7 +114,32 @@ class BurgerBuilder extends Component {
 	};
 
 	purchaseContineHandler = props => {
-		window.alert("You can Contine");
+		this.setState({
+			loading: true
+		});
+		const order = {
+			ingredients: this.state.ingredients,
+			price: this.state.totalPrice,
+			customer: {
+				name: "Gareth Beer",
+				address: {
+					street: "test town",
+					postcode: "llllllll",
+					county: "UK"
+				},
+				email: "test@test.co.uk"
+			},
+			deliveryMethod: "fastest"
+		};
+		axios
+			.post("/orders.json", order)
+			.then(response =>
+				this.setState({
+					loading: false,
+					summary: false
+				})
+			)
+			.catch(error => this.setState({ loading: false, summary: false }));
 	};
 	render() {
 		const disabledInfo = {
@@ -120,15 +148,20 @@ class BurgerBuilder extends Component {
 		for (let key in disabledInfo) {
 			disabledInfo[key] = disabledInfo[key] <= 0;
 		}
+
 		return (
 			<Aux>
 				<Modal show={this.state.summary} hide={this.orderSummaryState}>
-					<OrderSummary
-						ingredients={this.state.ingredients}
-						continue={this.purchaseContineHandler}
-						cancel={this.orderSummaryState}
-						price={this.state.totalPrice}
-					/>
+					{this.state.loading ? (
+						<Spinner />
+					) : (
+						<OrderSummary
+							ingredients={this.state.ingredients}
+							continue={this.purchaseContineHandler}
+							cancel={this.orderSummaryState}
+							price={this.state.totalPrice}
+						/>
+					)}
 				</Modal>
 
 				<Burger ingredients={this.state.ingredients} />
