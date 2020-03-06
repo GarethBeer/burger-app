@@ -17,17 +17,28 @@ const INGREDIENT_PRICES = {
 
 class BurgerBuilder extends Component {
 	state = {
-		ingredients: {
-			salad: 0,
-			bacon: 0,
-			cheese: 0,
-			meat: 0
-		},
+		ingredients: null,
 		totalPrice: 4,
 		purchase: false,
 		summary: false,
-		loading: false
+		loading: false,
+		error: false
 	};
+
+	componentDidMount() {
+		axios
+			.get("https://react-burger-builder-6d491.firebaseio.com/ingredients.json")
+			.then(response => {
+				this.setState({
+					ingredients: response.data
+				});
+			})
+			.catch(error => {
+				this.setState({
+					error: true
+				});
+			});
+	}
 
 	orderSummaryState = () => {
 		if (this.state.summary === false) {
@@ -153,28 +164,34 @@ class BurgerBuilder extends Component {
 		return (
 			<Aux>
 				<Modal show={this.state.summary} hide={this.orderSummaryState}>
-					{this.state.loading ? (
-						<Spinner />
-					) : (
+					{!this.state.loading && this.state.ingredients ? (
 						<OrderSummary
 							ingredients={this.state.ingredients}
 							continue={this.purchaseContineHandler}
 							cancel={this.orderSummaryState}
 							price={this.state.totalPrice}
 						/>
+					) : (
+						<Spinner />
 					)}
 				</Modal>
 
-				<Burger ingredients={this.state.ingredients} />
-				<BuildControls
-					add={this.addIngredientHandler}
-					remove={this.removeIngredientHandler}
-					disabled={disabledInfo}
-					price={this.state.totalPrice}
-					purchase={this.state.purchase}
-					summary={this.orderSummaryState}
-					reset={this.clearOrderHandler}
-				/>
+				{this.state.ingredients ? (
+					<Aux>
+						<Burger ingredients={this.state.ingredients} />
+						<BuildControls
+							add={this.addIngredientHandler}
+							remove={this.removeIngredientHandler}
+							disabled={disabledInfo}
+							price={this.state.totalPrice}
+							purchase={this.state.purchase}
+							summary={this.orderSummaryState}
+							reset={this.clearOrderHandler}
+						/>
+					</Aux>
+				) : (
+					<Spinner />
+				)}
 			</Aux>
 		);
 	}

@@ -35,9 +35,9 @@ class Modal extends Component {
 	}
 }
 
-Modal.propTypes = {
+/* Modal.propTypes = {
 	show: PropTypes.bool.isRequired,
 	hide: PropTypes.func.isRequired
-};
+}; */
 
 export default Modal;
