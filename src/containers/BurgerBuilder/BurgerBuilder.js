@@ -126,7 +126,20 @@ class BurgerBuilder extends Component {
 	};
 
 	purchaseContineHandler = props => {
-		this.setState({
+		const queryParams = [];
+		for (let i in this.state.ingredients) {
+			queryParams.push(
+				encodeURIComponent(i) +
+					"=" +
+					encodeURIComponent(this.state.ingredients[i])
+			);
+		}
+		const queryString = queryParams.join("&");
+		this.props.history.push({
+			pathname: "/checkout",
+			search: queryString
+		});
+		/* this.setState({
 			loading: true
 		});
 		const order = {
@@ -151,7 +164,7 @@ class BurgerBuilder extends Component {
 					summary: false
 				})
 			)
-			.catch(error => this.setState({ loading: false, summary: false }));
+			.catch(error => this.setState({ loading: false, summary: false })); */
 	};
 	render() {
 		const disabledInfo = {
